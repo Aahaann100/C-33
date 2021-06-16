@@ -49,7 +49,7 @@ function setup(){
     }
     chain = Constraint.create(chain_options)
     World.add(world,chain)*/
-    chain=new SlingShotter(bird.body,{x:200,y:100})
+    chain=new SlingShotter(bird.body,{x:200,y:50})
 
 }
 
@@ -86,6 +86,7 @@ function draw(){
 
 function mouseDragged(){
     Matter.Body.setPosition(bird.body,{x:mouseX,y:mouseY})
+    
 }
 
 function mouseReleased(){
