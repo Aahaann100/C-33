@@ -1,3 +1,4 @@
+var gameState="onSling"
 const Engine = Matter.Engine;
 const World= Matter.World;
 const Bodies = Matter.Bodies;
@@ -56,9 +57,7 @@ function setup(){
 function draw(){
     background(backgroundImg);
     Engine.update(engine);
-    console.log(box2.body.position.x);
-    console.log(box2.body.position.y);
-    console.log(box2.body.angle);
+    
     box1.display();
     box2.display();
     ground.display();
@@ -91,6 +90,16 @@ function mouseDragged(){
 
 function mouseReleased(){
 chain.fly()
+gameState="launcher"
 
+
+}
+
+function keyPressed(){
+    if(keyCode===32){
+        Matter.Body.setPosition(bird.body,{x:200,y:50})
+        chain.attach(bird.body)
+
+    }
 
 }
