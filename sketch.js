@@ -11,13 +11,15 @@ var platform;
 var chain;
 
 function preload() {
-    backgroundImg = loadImage("sprites/bg.png");
+    ///////////////////////////////////////////backgroundImg = loadImage("sprites/bg.png");
+    getBackgroundImage();
 }
 
 function setup(){
     var canvas = createCanvas(1200,400);
     engine = Engine.create();
     world = engine.world;
+    
 
     
     ground = new Ground(600,height,1200,20)
@@ -55,7 +57,10 @@ function setup(){
 }
 
 function draw(){
-    background(backgroundImg);
+    if(backgroundImg){
+        background(backgroundImg);
+    }
+   
     Engine.update(engine);
     
     box1.display();
@@ -99,7 +104,22 @@ function keyPressed(){
     if(keyCode===32){
         Matter.Body.setPosition(bird.body,{x:200,y:50})
         chain.attach(bird.body)
+        gameState="onSling"
 
     }
 
+}
+
+
+async function getBackgroundImage(){
+    var response= await fetch("http://worldtimeapi.org/api/timezone/Asia/Kolkata")
+    var responsejson=response.json()
+    console.log(responsejson)
+    var dateTime=responsejson.dateTime;
+    var hour=dateTime.slice(11,13)
+    if(hour>=6&&hour<=15){
+        bg="sprites/bg.png"
+    }else{
+        bg="sprites/DARKNESS-DEVOURS.jpg"
+    }
 }
